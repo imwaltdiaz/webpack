@@ -82,3 +82,5 @@ npx webpack --mode production
 npx webpack --mode development
 La diferencia radica que el modo development deja el código mas legible para los desarrolladores pero con comentarios, el modo production deja el código comprimido y mas limpio para usarse.
 
+Estamos trabajando con git submodulos: https://www.youtube.com/watch?v=YVUkxt3Bvwg
+
