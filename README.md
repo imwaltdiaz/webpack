@@ -385,3 +385,59 @@ path.resolve('wwwroot', 'static_files/png/', '../gif/image.gif');
 
 ## Loaders de imágenes
 
+Puedes usar una forma de importar las imágenes haciendo un import de las mismas y generando una variable
+No es necesario instalar ninguna dependencia, webpack ya lo tiene incluido debemos agregar la siguiente configuración
+module.exports = {
+	...
+  module: {
+    rules: [
+      {
+        test: /\.png/,
+        type: "asset/resource"
+      }
+    ]
+  },
+}
+Para empezar a usar esta configuración debemos importar la imagen de la siguiente forma
+import github from '../assets/images/github.png';
+Para incluirlo en el HTML debes hacer lo siguiente
+// Ejemplo en Vanilla JS
+const imagen = `<img src=`${github}` />`;
+
+Implementando la siguiente configuración adicional podemos gestionar el directorio de salida:
+
+{
+  test: /\.(png|svg|jpg|jpeg|gif)$/i,
+  type: 'asset/resource',
+  generator: {
+    filename: 'static/images/[hash][ext][query]',
+  },
+},
+
+Pasé toda la tarde de este lindo sábado tratando de encontrar la manera de usar una imagen en un archivo css, como background-image: url(./tuimagen.png)
+
+Para ello se debe poner esta regla:
+{
+test: /.(png|svg|jpg|jpeg|gif)$/i,
+type: “asset/resource”,
+},
+
+Al momento de correr npm run build se va a generar una imagen en nuestra carpeta raiz (dist) con un nombre raro alfa-numerico.
+
+En nuestro archivo main.css va a parecer el enlace a esa imagen considerando el nuevo nombre raro alfa-numérico.
+
+Para mayor información revisen la lectura recomendada.
+“3 horas de debugging te ahorran 30 minu
+
+## Loaders de fuentes
+
+En el css en lugar de usar un import, usaremos un font face
+@import "https://fonts.googleapis.com/css?family=Ubuntu:300,400,500";
+
+se convierte en
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('../assets/fonts/ubuntu-regular.woff2') format('woff2'), url('../assets/fonts/ubuntu-regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
